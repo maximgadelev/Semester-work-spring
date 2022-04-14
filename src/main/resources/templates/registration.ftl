@@ -6,10 +6,10 @@
             <div class="form">
                 <h1>Регистрация</h1>
                 <div class="input-form">
-                    <input name="login" type="text" autocomplete="off" minlength="6" maxlength="40" placeholder="Логин" required/>
+                    <input name="login" type="text" autocomplete="off" minlength="8" maxlength="64" placeholder="Логин" required/>
                 </div>
                 <div class="input-form">
-                    <input name="password" type="password" autocomplete="off" minlength="6" maxlength="30" placeholder="Пароль" required>
+                    <input name="password" type="password" autocomplete="off" minlength="8" maxlength="64" placeholder="Пароль" required>
                 </div>
                 <div class="input-form">
                     <input name="name" type="text" autocomplete="off" minlength="2" maxlength="30" pattern="^[А-Я].*" placeholder="Имя" required>

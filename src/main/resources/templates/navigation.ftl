@@ -52,9 +52,9 @@
 <#macro unloggedUser>
     <nav>
         <ul>
-            <li><a href="login.ftl">Логин</a></li>
-            <li><a href="registration.ftl">Регистрация</a></li>
-            <li><a href="main">Главная</a> </li>
+            <li><a href="/login">Логин</a></li>
+            <li><a href=/reg>Регистрация</a></li>
+            <li><a href="main.ftl">Главная</a> </li>
         </ul>
     </nav>
     <style>

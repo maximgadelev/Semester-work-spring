@@ -14,8 +14,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().
                 and()
                 .formLogin()
-                .loginPage("/reg")
-                .failureUrl("/reg?error")
+                .loginPage("/login")
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .permitAll();
