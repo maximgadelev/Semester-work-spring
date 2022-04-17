@@ -2,6 +2,7 @@ package com.gadelev.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 
 @Entity
@@ -12,58 +13,39 @@ public class Passenger {
     private Integer id;
     private String name;
     private String surname;
+    @Size(min = 8, max = 64, message = "Email should contains from 8 to 64 symbols")
+    @Column(nullable = false, length = 64)
     private String email;
     @Size(min = 8, max = 64, message = "Password should contains from 8 to 64 symbols")
     @Column(nullable = false, length = 64)
     private String password;
 
-    @Size(min = 8, max = 64, message = "Login should contains from 8 to 64 symbols")
-    @Column(nullable = false, length = 64)
-    private String login;
+
     private double rating;
     private String dateOfBirth;
     private String profileImage;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+    )
+    private Set<Role> roles;
 
-    public Passenger(String name, String surname, String login, String password, String dateOfBirth, Double rating) {
-        this.name = name;
-        this.surname = surname;
-        this.login = login;
-        this.password = password;
-        this.dateOfBirth = dateOfBirth;
-        this.rating = rating;
 
-    }
 
-    public Passenger(String name, String surname, String login, String password, String dateOfBirth) {
-        this.name = name;
-        this.surname = surname;
-        this.login = login;
-        this.password = password;
-        this.dateOfBirth = dateOfBirth;
-    }
 
-    public Passenger(int id, String name, String surname, String login, String password, double rating, String dateOfBirth, String profileImage) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.login = login;
-        this.password = password;
-        this.rating = rating;
-        this.dateOfBirth = dateOfBirth;
-        this.profileImage = profileImage;
-    }
-
-    public Passenger(String name, String surname, String login, String password, String dateOfBirth, String profileImage) {
-        this.name = name;
-        this.surname = surname;
-        this.login = login;
-        this.password = password;
-        this.dateOfBirth = dateOfBirth;
-        this.profileImage = profileImage;
-    }
 
     public Passenger() {
 
+    }
+
+    public Passenger(String name, String surname, String email, String password, String dateOfBirth) {
+        this.name=name;
+        this.surname=surname;
+        this.email=email;
+        this.password=password;
+        this.dateOfBirth=dateOfBirth;
     }
 
     public String getProfileImage() {
@@ -74,13 +56,9 @@ public class Passenger {
         this.profileImage = profileImage;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+
+
 
     public String getName() {
         return name;
@@ -96,14 +74,6 @@ public class Passenger {
 
     public void setSurname(String surname) {
         this.surname = surname;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
     }
 
     public String getPassword() {
@@ -128,6 +98,30 @@ public class Passenger {
 
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public Integer getId() {
+        return id;
     }
 }
 

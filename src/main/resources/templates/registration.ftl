@@ -1,12 +1,13 @@
 <#ftl encoding='UTF-8'>
+
 <#macro registrationTemplate>
     <head>
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-        <form action="/registration" method="post">
+        <form  method="post" action="/reg">
             <div class="form">
                 <h1>Регистрация</h1>
                 <div class="input-form">
-                    <input name="login" type="text" autocomplete="off" minlength="8" maxlength="64" placeholder="Логин" required/>
+                    <input name="email" type="text" autocomplete="off" minlength="8" maxlength="64" placeholder="Email" required/>
                 </div>
                 <div class="input-form">
                     <input name="password" type="password" autocomplete="off" minlength="8" maxlength="64" placeholder="Пароль" required>
