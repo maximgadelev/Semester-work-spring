@@ -14,7 +14,7 @@ public class Passenger {
     private String name;
     private String surname;
     @Size(min = 8, max = 64, message = "Email should contains from 8 to 64 symbols")
-    @Column(nullable = false, length = 64)
+    @Column(nullable = false, length = 64,unique = true)
     private String email;
     @Size(min = 8, max = 64, message = "Password should contains from 8 to 64 symbols")
     @Column(nullable = false, length = 64)

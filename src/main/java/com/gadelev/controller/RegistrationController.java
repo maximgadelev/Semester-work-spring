@@ -1,6 +1,7 @@
 package com.gadelev.controller;
 
 import com.gadelev.dto.CreatePassengerDto;
+import com.gadelev.dto.PassengerDto;
 import com.gadelev.service.PassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,8 +31,14 @@ public class RegistrationController {
 
     @PostMapping("/reg")
     public String userRegistration(CreatePassengerDto createUserDto) {
-passengerService.createNewPassenger(createUserDto);
-        return "logiin";
+        PassengerDto passengerDto=passengerService.getPassengerByEmail(createUserDto.getEmail());
+        if(passengerDto==null) {
+            passengerService.createNewPassenger(createUserDto);
+            return "redirect:/login";
+        }else{
+            System.out.println("пароль уже существует");
+            return "regiistration";
+        }
     }
 }
 
