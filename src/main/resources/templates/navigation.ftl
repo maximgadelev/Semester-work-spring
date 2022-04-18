@@ -3,7 +3,7 @@
     <#macro loggedDriver>
         <nav>
             <ul>
-                <li><a href="main.ftl">Главная</a></li>
+                <li><a href="/main">Главная</a></li>
                 <li><a href="/driver">Профиль</a></li>
                 <li><a href="/driverActiveTrips">Ваши текущие поездки</a></li>
                 <li><a href="/driverEndTrips">Ваши завершенные поездки</a></li>
@@ -54,7 +54,7 @@
         <ul>
             <li><a href="/login">Логин</a></li>
             <li><a href=/reg>Регистрация</a></li>
-            <li><a href="main.ftl">Главная</a> </li>
+            <li><a href="/main">Главная</a> </li>
         </ul>
     </nav>
     <style>
@@ -98,7 +98,7 @@
     <#macro loggedUser>
         <nav>
             <ul>
-                <li><a href="main.ftl">Главная</a></li>
+                <li><a href="/main">Главная</a></li>
                 <li><a href="/passenger">Профиль Пассажира</a></li>
                 <li><a href ="/activePassengerTrips">Ваши текущие поездки</a></li>
                 <li><a href="/passengerEndTrips">Ваши завершенные поездки</a></li>
