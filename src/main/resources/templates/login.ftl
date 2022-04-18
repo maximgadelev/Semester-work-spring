@@ -3,15 +3,14 @@
     <head>
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     </head>
-<#--    <#if err?has_content>-->
-<#--        <h1>Неправильный логин или пароль!</h1>-->
-<#--    </#if>-->
+    <#if err?has_content>
+        <h1>Неправильный логин или пароль!</h1>
+    </#if>
     <form action="/login" method ="post">
-
         <div class="form">
             <h1>Вход</h1>
             <div class="input-form">
-                <input name="login" type="text" maxlength="40" required placeholder="Логин"/>
+                <input name="email" type="text" maxlength="40" required placeholder="Email"/>
                 <br>
             </div>
             <div class="input-form">
