@@ -38,6 +38,8 @@ dependencies {
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.0.4.RELEASE'
     implementation 'org.thymeleaf:thymeleaf-spring5:3.0.15.RELEASE'
+    implementation 'org.springframework.security:spring-security-taglibs:5.6.3'
+    implementation 'org.springframework.webflow:spring-faces:2.5.1.RELEASE'
     implementation 'org.springframework.boot:spring-boot-starter-freemarker:2.6.3'
 }
 

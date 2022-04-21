@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <@common.htmlTemplate pageName="Main">
-    <#if passenger?has_content>
+    <#if user=='PASSENGER'>
         <@navigation.loggedUser/>
         <form action="/main" method="post" class="find">
             <input name="first" type="text" placeholder="Откуда" required>
@@ -20,7 +20,7 @@
         </form>
         <H4>Здесь вы сможете найти оптимальный вариант поездки среди широкого выбора по самой низкой цене!</H4>
     <#else>
-        <#if driver?has_content>
+        <#if user=='DRIVER'>
             <@navigation.loggedDriver/>
             <H1>Станьте водителем вместе с нами - берите попутчиков и экономьте на бензине!</H1>
             <#if car?has_content>
