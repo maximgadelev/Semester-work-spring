@@ -1,5 +1,6 @@
 package com.gadelev.dto;
 
+import com.gadelev.model.Car;
 import com.gadelev.model.Passenger;
 
 public class PassengerDto {
@@ -12,8 +13,9 @@ public class PassengerDto {
     private String dateOfBirth;
     private String profileImage;
     private Passenger.Role role;
+    private Car car;
 
-    public PassengerDto(Integer id, String name, String surname, String email, String password, double rating, String dateOfBirth, String profileImage,Passenger.Role role) {
+    public PassengerDto(Integer id, String name, String surname, String email, String password, double rating, String dateOfBirth, String profileImage,Passenger.Role role,Car car) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -23,6 +25,7 @@ public class PassengerDto {
         this.dateOfBirth = dateOfBirth;
         this.profileImage = profileImage;
         this.role=role;
+        this.car=car;
     }
 
     public PassengerDto(String name, String surname, String email, String password, double rating, String dateOfBirth, String profileImage) {
@@ -117,7 +120,8 @@ public class PassengerDto {
                 passenger.getRating(),
                 passenger.getDateOfBirth(),
                 passenger.getProfileImage(),
-                passenger.getRole()
+                passenger.getRole(),
+                passenger.getCar()
         );
     }
 }

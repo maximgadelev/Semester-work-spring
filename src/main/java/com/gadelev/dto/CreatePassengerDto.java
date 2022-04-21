@@ -1,5 +1,6 @@
 package com.gadelev.dto;
 
+import com.gadelev.model.Car;
 import com.gadelev.model.Passenger;
 import lombok.NoArgsConstructor;
 
@@ -24,7 +25,7 @@ public class CreatePassengerDto {
     @NotBlank(message = "Date of birth shouldn't be blank!")
     private String dateOfBirth;
     private Passenger.Role role;
-
+    private Car car;
 
     public CreatePassengerDto(String name, String surname, String email, String password, String dateOfBirth,Passenger.Role role) {
         this.name = name;
@@ -77,6 +78,14 @@ public class CreatePassengerDto {
 
     public void setRole(Passenger.Role role) {
         this.role = role;
+    }
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
     }
 
     public void setDateOfBirth(String dateOfBirth) {

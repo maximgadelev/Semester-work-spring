@@ -2,9 +2,12 @@ package com.gadelev.controller;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.gadelev.dto.CreateCarDto;
+import com.gadelev.dto.CreatePassengerDto;
 import com.gadelev.helper.CloudinaryHelper;
 import com.gadelev.model.Passenger;
 import com.gadelev.security.CustomPassengerDetails;
+import com.gadelev.service.CarService;
 import com.gadelev.service.PassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -25,35 +28,49 @@ import java.util.Map;
 @Controller
 public class UserController {
     private final PassengerService passengerService;
-
+    private final CarService carService;
 
     @Autowired
-    public UserController(PassengerService passengerService) {
+    public UserController(PassengerService passengerService, CarService carService) {
         this.passengerService = passengerService;
+        this.carService = carService;
     }
 
     @GetMapping("/passenger")
     public String getProfile(Model model, Authentication authentication) {
         Passenger passenger = ((CustomPassengerDetails) authentication.getPrincipal()).getPassenger();
         model.addAttribute("passenger", passenger);
-        if(passenger.getRole().equals(Passenger.Role.PASSENGER)) {
+        if (passenger.getRole().equals(Passenger.Role.PASSENGER)) {
             return "profilePassenger";
-        }else{
+        } else {
+            model.addAttribute("car",passenger.getCar());
             return "driverProfile";
         }
     }
 
     @PostMapping("/upload")
-    public String uploadPhoto(HttpServletRequest request,Authentication authentication) throws ServletException, IOException {
+    public String uploadPhoto(HttpServletRequest request, Authentication authentication) throws ServletException, IOException {
         Passenger passenger = ((CustomPassengerDetails) authentication.getPrincipal()).getPassenger();
         File file = getFile(request);
         String filename = "passengerPhoto" + passenger.getId();
-        Cloudinary cloudinary= CloudinaryHelper.getInstance();
-        Map upload =  cloudinary.uploader().upload(file,
+        Cloudinary cloudinary = CloudinaryHelper.getInstance();
+        Map upload = cloudinary.uploader().upload(file,
                 ObjectUtils.asMap("public_id", filename));
         String url = (String) upload.get("url");
-        passengerService.updatePhoto(passenger,url);
+        passengerService.updatePhoto(passenger, url);
         return "redirect:/passenger";
+    }
+
+    @PostMapping("/addCar")
+    public String addCar(CreateCarDto createCarDto,Authentication authentication) {
+        Passenger passenger = ((CustomPassengerDetails) authentication.getPrincipal()).getPassenger();
+        carService.saveCar(createCarDto,passenger);
+        return "redirect:/passenger";
+    }
+    @GetMapping("/addCar")
+    public String getCarPage(Model mode){
+        mode.addAttribute("car",new CreateCarDto());
+        return "addCar";
     }
 
     private File getFile(HttpServletRequest request) throws IOException, ServletException {

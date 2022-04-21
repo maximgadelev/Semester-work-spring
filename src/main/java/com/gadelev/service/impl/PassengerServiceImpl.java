@@ -3,6 +3,7 @@ package com.gadelev.service.impl;
 import com.gadelev.dto.CreatePassengerDto;
 import com.gadelev.dto.PassengerDto;
 import com.gadelev.model.Passenger;
+import com.gadelev.repo.CarRepository;
 import com.gadelev.repo.PassengerRepository;
 import com.gadelev.service.PassengerService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -25,25 +25,26 @@ public class Passenger {
     private String password;
 
 
-    private double rating=5.0;
+    private double rating = 5.0;
     private String dateOfBirth;
-    private String profileImage="https://res.cloudinary.com/itis-gadelev/image/upload/v1635691243/default_user_bcaf0n.png";
+    private String profileImage = "https://res.cloudinary.com/itis-gadelev/image/upload/v1635691243/default_user_bcaf0n.png";
 
     @Enumerated(EnumType.STRING)
     private Role role;
-
+    @OneToOne(mappedBy = "passenger", cascade = CascadeType.ALL)
+    private Car car;
 
     public Passenger() {
 
     }
 
-    public Passenger(String name, String surname, String email, String password, String dateOfBirth,Role role) {
+    public Passenger(String name, String surname, String email, String password, String dateOfBirth, Role role) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
         this.dateOfBirth = dateOfBirth;
-        this.role=role;
+        this.role = role;
     }
 
     public String getProfileImage() {
@@ -117,6 +118,14 @@ public class Passenger {
 
     public Integer getId() {
         return id;
+    }
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
     }
 }
 

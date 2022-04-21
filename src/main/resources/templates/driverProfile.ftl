@@ -63,15 +63,15 @@
                                 <tbody>
                                 <tr>
                                     <th><strong>Номер</strong></th>
-                                    <td>${passenger.number}</td>
+                                    <td>${car.number}</td>
                                 </tr>
                                 <tr>
                                     <th><strong>Бренд</strong></th>
-                                    <td>${passenger.brand}</td>
+                                    <td>${car.brand}</td>
                                 </tr>
                                 <tr>
                                     <th><strong>Модель</strong></th>
-                                    <td>${passenger.model}</td>
+                                    <td>${car.model}</td>
                                 </tr>
                                 </tbody>
                             </table>
