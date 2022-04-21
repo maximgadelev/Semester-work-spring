@@ -22,10 +22,10 @@
                     <input name ="dateOfBirth" type="text" autocomplete="off" minlength="10" maxlength="10" pattern="^(?:0[1-9]|[12]\d|3[01])([\/.-])(?:0[1-9]|1[012])\1(?:19|20)\d\d$" placeholder="Дата рождения" required>
                 </div>
                 <div class = "radio">
-                    <p><input type="radio" name="check" id="passenger" value="passenger">Вы пассажир</p>
+                    <p><input type="radio" name="role" id="passenger" value="PASSENGER">Вы пассажир</p>
                 </div>
                 <div class = "radio">
-                    <p><input type="radio" name="check" id="driver" value="driver">Вы водитель</p>
+                    <p><input type="radio" name="role" id="driver" value="DRIVER">Вы водитель</p>
                 </div>
                 <div class="input-form-button">
                     <input type="submit" value="Зарегестрироваться">

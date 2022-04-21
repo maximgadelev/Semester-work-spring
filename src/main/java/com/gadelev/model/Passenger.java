@@ -8,13 +8,17 @@ import java.util.Set;
 @Entity
 @Table(name = "passengers")
 public class Passenger {
+    public enum Role {
+        PASSENGER, DRIVER
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
     private String surname;
     @Size(min = 8, max = 64, message = "Email should contains from 8 to 64 symbols")
-    @Column(nullable = false, length = 64,unique = true)
+    @Column(nullable = false, length = 64, unique = true)
     private String email;
     @Size(min = 8, max = 64, message = "Password should contains from 8 to 64 symbols")
     @Column(nullable = false, length = 64)
@@ -24,28 +28,22 @@ public class Passenger {
     private double rating;
     private String dateOfBirth;
     private String profileImage;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
-    )
-    private Set<Role> roles;
 
-
-
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
 
     public Passenger() {
 
     }
 
-    public Passenger(String name, String surname, String email, String password, String dateOfBirth) {
-        this.name=name;
-        this.surname=surname;
-        this.email=email;
-        this.password=password;
-        this.dateOfBirth=dateOfBirth;
+    public Passenger(String name, String surname, String email, String password, String dateOfBirth,Role role) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.password = password;
+        this.dateOfBirth = dateOfBirth;
+        this.role=role;
     }
 
     public String getProfileImage() {
@@ -55,9 +53,6 @@ public class Passenger {
     public void setProfileImage(String profileImage) {
         this.profileImage = profileImage;
     }
-
-
-
 
 
     public String getName() {
@@ -112,12 +107,12 @@ public class Passenger {
         this.email = email;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public Integer getId() {

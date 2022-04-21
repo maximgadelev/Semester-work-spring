@@ -23,7 +23,7 @@ public class PassengerServiceImpl implements PassengerService {
 
     @Override
     public PassengerDto createNewPassenger(CreatePassengerDto createPassengerDto) {
-        return PassengerDto.fromModel(passengerRepository.save(new Passenger(createPassengerDto.getName(), createPassengerDto.getSurname(), createPassengerDto.getEmail(), encoder.encode(createPassengerDto.getPassword()), createPassengerDto.getDateOfBirth())));
+        return PassengerDto.fromModel(passengerRepository.save(new Passenger(createPassengerDto.getName(), createPassengerDto.getSurname(), createPassengerDto.getEmail(), encoder.encode(createPassengerDto.getPassword()), createPassengerDto.getDateOfBirth(),createPassengerDto.getRole())));
     }
 
     @Override

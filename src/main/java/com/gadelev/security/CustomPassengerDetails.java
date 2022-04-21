@@ -5,9 +5,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.Collections;
 
 public class CustomPassengerDetails implements UserDetails {
     private Passenger passenger;
@@ -18,9 +17,7 @@ public class CustomPassengerDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        passenger.getRoles().forEach(r -> authorities.add(new SimpleGrantedAuthority(r.getName())));
-        return authorities;
+        return Collections.singleton(new SimpleGrantedAuthority(passenger.getRole().name()));
     }
 
     @Override

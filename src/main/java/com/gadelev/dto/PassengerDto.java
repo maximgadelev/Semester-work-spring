@@ -11,8 +11,9 @@ public class PassengerDto {
     private double rating;
     private String dateOfBirth;
     private String profileImage;
+    private Passenger.Role role;
 
-    public PassengerDto(Integer id, String name, String surname, String email, String password, double rating, String dateOfBirth, String profileImage) {
+    public PassengerDto(Integer id, String name, String surname, String email, String password, double rating, String dateOfBirth, String profileImage,Passenger.Role role) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -21,6 +22,7 @@ public class PassengerDto {
         this.rating = rating;
         this.dateOfBirth = dateOfBirth;
         this.profileImage = profileImage;
+        this.role=role;
     }
 
     public PassengerDto(String name, String surname, String email, String password, double rating, String dateOfBirth, String profileImage) {
@@ -97,6 +99,14 @@ public class PassengerDto {
         this.profileImage = profileImage;
     }
 
+    public Passenger.Role getRole() {
+        return role;
+    }
+
+    public void setRole(Passenger.Role role) {
+        this.role = role;
+    }
+
     public static PassengerDto fromModel(Passenger passenger) {
         return new PassengerDto(
                 passenger.getId(),
@@ -106,7 +116,8 @@ public class PassengerDto {
                 passenger.getPassword(),
                 passenger.getRating(),
                 passenger.getDateOfBirth(),
-                passenger.getProfileImage()
+                passenger.getProfileImage(),
+                passenger.getRole()
         );
     }
 }
