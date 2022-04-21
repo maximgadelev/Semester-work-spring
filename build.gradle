@@ -41,6 +41,7 @@ dependencies {
     implementation 'org.springframework.security:spring-security-taglibs:5.6.3'
     implementation 'org.springframework.webflow:spring-faces:2.5.1.RELEASE'
     implementation 'org.springframework.boot:spring-boot-starter-freemarker:2.6.3'
+    implementation 'com.cloudinary:cloudinary-http44:1.32.0'
 }
 
 tasks.named('test') {

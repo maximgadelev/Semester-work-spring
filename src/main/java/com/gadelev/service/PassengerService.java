@@ -7,4 +7,5 @@ import com.gadelev.model.Passenger;
 public interface PassengerService {
     PassengerDto createNewPassenger(CreatePassengerDto createPassengerDto);
     PassengerDto getPassengerByEmail(String email);
+    void updatePhoto(Passenger passenger,String url);
 }

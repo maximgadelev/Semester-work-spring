@@ -35,4 +35,10 @@ public class PassengerServiceImpl implements PassengerService {
             return null;
         }
     }
+
+    @Override
+    public void updatePhoto(Passenger passenger,String url) {
+        passenger.setProfileImage(url);
+        passengerRepository.save(passenger);
+    }
 }

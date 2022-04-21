@@ -17,9 +17,9 @@
                         <h4 class="panel-title">Профиль пользователя</h4>
                     </div>
                     <div class="panel-body">
-<#--                        <div class="profile__avatar">-->
-<#--                            <img src="${passenger.profile_image}" alt="...">-->
-<#--                        </div>-->
+                        <div class="profile__avatar">
+                            <img src="${passenger.profileImage}" alt="...">
+                        </div>
                         <div class="profile__header">
                             <h3>${passenger.name} ${passenger.surname} <small>Пассажир</small></h3>
                         </div>
