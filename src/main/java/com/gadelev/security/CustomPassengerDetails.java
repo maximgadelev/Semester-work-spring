@@ -15,6 +15,14 @@ public class CustomPassengerDetails implements UserDetails {
         this.passenger = passenger;
     }
 
+    public Passenger getPassenger() {
+        return passenger;
+    }
+
+    public void setPassenger(Passenger passenger) {
+        this.passenger = passenger;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(new SimpleGrantedAuthority(passenger.getRole().name()));
@@ -49,4 +57,6 @@ public class CustomPassengerDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }
