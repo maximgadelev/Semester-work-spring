@@ -4,7 +4,7 @@
         <nav>
             <ul>
                 <li><a href="/main">Главная</a></li>
-                <li><a href="/driver">Профиль</a></li>
+                <li><a href="/passenger">Профиль</a></li>
                 <li><a href="/driverActiveTrips">Ваши текущие поездки</a></li>
                 <li><a href="/driverEndTrips">Ваши завершенные поездки</a></li>
                 <li><a href="/driversFeedback">Отзывы о вас</a></li>

@@ -36,7 +36,11 @@ public class UserController {
     public String getProfile(Model model, Authentication authentication) {
         Passenger passenger = ((CustomPassengerDetails) authentication.getPrincipal()).getPassenger();
         model.addAttribute("passenger", passenger);
-        return "profilePassenger";
+        if(passenger.getRole().equals(Passenger.Role.PASSENGER)) {
+            return "profilePassenger";
+        }else{
+            return "driverProfile";
+        }
     }
 
     @PostMapping("/upload")

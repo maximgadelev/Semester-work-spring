@@ -25,9 +25,9 @@ public class Passenger {
     private String password;
 
 
-    private double rating;
+    private double rating=5.0;
     private String dateOfBirth;
-    private String profileImage;
+    private String profileImage="https://res.cloudinary.com/itis-gadelev/image/upload/v1635691243/default_user_bcaf0n.png";
 
     @Enumerated(EnumType.STRING)
     private Role role;
