@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -24,6 +25,8 @@ public class Car {
     private String number;
     private int numberOfPlaces;
     private String model;
+    @OneToMany(mappedBy = "car")
+    private Set<Trip> trips;
 
     public Car(Passenger passenger, String brand, String number, int numberOfPlaces, String model) {
         this.passenger = passenger;

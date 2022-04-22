@@ -2,10 +2,13 @@ package com.gadelev.dto;
 
 import com.gadelev.model.Car;
 import com.gadelev.model.Passenger;
+import com.gadelev.model.Trip;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -18,6 +21,7 @@ public class CarDto {
     private String number;
     private int numberOfPlaces;
     private String model;
+    private Set<Trip> trips;
 
     public Integer getId() {
         return id;
@@ -66,14 +70,16 @@ public class CarDto {
     public void setModel(String model) {
         this.model = model;
     }
-    public static CarDto fromModel(Car car){
+
+    public static CarDto fromModel(Car car) {
         return new CarDto(
                 car.getId(),
                 car.getPassenger(),
                 car.getBrand(),
                 car.getNumber(),
                 car.getNumberOfPlaces(),
-                car.getModel()
+                car.getModel(),
+                car.getTrips()
         );
     }
 }

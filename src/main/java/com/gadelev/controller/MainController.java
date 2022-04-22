@@ -1,5 +1,7 @@
 package com.gadelev.controller;
 
+import com.gadelev.model.Passenger;
+import com.gadelev.security.CustomPassengerDetails;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,8 @@ public class MainController {
                     .map(r -> r.getAuthority()).collect(Collectors.toList());
             System.out.println(roles.get(0));
             model.addAttribute("user", roles.get(0));
+            Passenger passenger = ((CustomPassengerDetails) authentication.getPrincipal()).getPassenger();
+            model.addAttribute("car",passenger.getCar());
             return "main";
         }
         model.addAttribute("user","anon");

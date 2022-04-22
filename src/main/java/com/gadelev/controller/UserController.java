@@ -3,12 +3,14 @@ package com.gadelev.controller;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.gadelev.dto.CreateCarDto;
-import com.gadelev.dto.CreatePassengerDto;
+import com.gadelev.dto.CreateTripDto;
 import com.gadelev.helper.CloudinaryHelper;
+import com.gadelev.model.Car;
 import com.gadelev.model.Passenger;
 import com.gadelev.security.CustomPassengerDetails;
 import com.gadelev.service.CarService;
 import com.gadelev.service.PassengerService;
+import com.gadelev.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -29,11 +31,13 @@ import java.util.Map;
 public class UserController {
     private final PassengerService passengerService;
     private final CarService carService;
+    private final TripService tripService;
 
     @Autowired
-    public UserController(PassengerService passengerService, CarService carService) {
+    public UserController(PassengerService passengerService, CarService carService, TripService tripService) {
         this.passengerService = passengerService;
         this.carService = carService;
+        this.tripService = tripService;
     }
 
     @GetMapping("/passenger")
@@ -43,7 +47,7 @@ public class UserController {
         if (passenger.getRole().equals(Passenger.Role.PASSENGER)) {
             return "profilePassenger";
         } else {
-            model.addAttribute("car",passenger.getCar());
+            model.addAttribute("car", passenger.getCar());
             return "driverProfile";
         }
     }
@@ -62,15 +66,31 @@ public class UserController {
     }
 
     @PostMapping("/addCar")
-    public String addCar(CreateCarDto createCarDto,Authentication authentication) {
+    public String addCar(CreateCarDto createCarDto, Authentication authentication) {
         Passenger passenger = ((CustomPassengerDetails) authentication.getPrincipal()).getPassenger();
-        carService.saveCar(createCarDto,passenger);
+        carService.saveCar(createCarDto, passenger);
         return "redirect:/passenger";
     }
+
     @GetMapping("/addCar")
-    public String getCarPage(Model mode){
-        mode.addAttribute("car",new CreateCarDto());
+    public String getCarPage(Model mode) {
+        mode.addAttribute("car", new CreateCarDto());
         return "addCar";
+    }
+
+    @GetMapping("/addTrip")
+    public String getTripPage() {
+        return "addTrip";
+    }
+
+    @PostMapping("/addTrip")
+    public String addTrip(CreateTripDto createTripDto, Authentication authentication) {
+        Passenger passenger = ((CustomPassengerDetails) authentication.getPrincipal()).getPassenger();
+        Car car = passenger.getCar();
+        createTripDto.setCar(car);
+        createTripDto.setFreePlaces(car.getNumberOfPlaces());
+        tripService.saveTrip(createTripDto);
+return "redirect:/passenger";
     }
 
     private File getFile(HttpServletRequest request) throws IOException, ServletException {
