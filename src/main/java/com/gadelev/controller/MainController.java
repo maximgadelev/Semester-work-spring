@@ -17,7 +17,6 @@ public class MainController {
         if(authentication!=null) {
             List<String> roles = authentication.getAuthorities().stream()
                     .map(r -> r.getAuthority()).collect(Collectors.toList());
-            System.out.println(roles.get(0));
             model.addAttribute("user", roles.get(0));
             Passenger passenger = ((CustomPassengerDetails) authentication.getPrincipal()).getPassenger();
             model.addAttribute("car",passenger.getCar());

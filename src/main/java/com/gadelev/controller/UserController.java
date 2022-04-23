@@ -90,7 +90,7 @@ public class UserController {
         createTripDto.setCar(car);
         createTripDto.setFreePlaces(car.getNumberOfPlaces());
         tripService.saveTrip(createTripDto);
-return "redirect:/passenger";
+        return "redirect:/passenger";
     }
 
     private File getFile(HttpServletRequest request) throws IOException, ServletException {

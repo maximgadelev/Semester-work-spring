@@ -7,7 +7,7 @@
 <@common.htmlTemplate pageName="Main">
     <#if user=='PASSENGER'>
         <@navigation.loggedUser/>
-        <form action="/main" method="post" class="find">
+        <form action="/findTrips" method="post" class="find">
             <input name="first" type="text" placeholder="Откуда" required>
             <input name="second" type="text" placeholder="Куда" required>
             <input name ="date" type="text" placeholder="Дата" required>
@@ -38,7 +38,7 @@
             </#if>
         <#else>
             <@navigation.unloggedUser/>
-            <form action="/main" method="post" class="find">
+            <form action="/findTrips" method="post" class="find">
                 <input name="first" type="text" placeholder="Откуда" required>
                 <input name="second" type="text" placeholder="Куда" required>
                 <input name ="date" type="text" placeholder="Дата" required>
