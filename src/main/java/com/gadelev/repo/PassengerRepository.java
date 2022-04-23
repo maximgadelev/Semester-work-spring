@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface PassengerRepository extends JpaRepository<Passenger, Integer> {
     Optional<Passenger> getByEmail(String email);
 
+
 }

@@ -40,7 +40,7 @@ public class UserController {
         this.tripService = tripService;
     }
 
-    @GetMapping("/passenger")
+    @GetMapping("/profile")
     public String getProfile(Model model, Authentication authentication) {
         Passenger passenger = ((CustomPassengerDetails) authentication.getPrincipal()).getPassenger();
         model.addAttribute("passenger", passenger);
@@ -62,14 +62,14 @@ public class UserController {
                 ObjectUtils.asMap("public_id", filename));
         String url = (String) upload.get("url");
         passengerService.updatePhoto(passenger, url);
-        return "redirect:/passenger";
+        return "redirect:/profile";
     }
 
     @PostMapping("/addCar")
     public String addCar(CreateCarDto createCarDto, Authentication authentication) {
         Passenger passenger = ((CustomPassengerDetails) authentication.getPrincipal()).getPassenger();
         carService.saveCar(createCarDto, passenger);
-        return "redirect:/passenger";
+        return "redirect:/profile";
     }
 
     @GetMapping("/addCar")
@@ -90,7 +90,7 @@ public class UserController {
         createTripDto.setCar(car);
         createTripDto.setFreePlaces(car.getNumberOfPlaces());
         tripService.saveTrip(createTripDto);
-        return "redirect:/passenger";
+        return "redirect:/profile";
     }
 
     private File getFile(HttpServletRequest request) throws IOException, ServletException {
@@ -104,6 +104,5 @@ public class UserController {
         outputStream.write(buffer);
 
         return file;
-
     }
 }

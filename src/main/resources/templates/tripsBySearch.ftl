@@ -29,7 +29,7 @@
                                                 class="icofont-clock-time ml-2"></i></p>
                                     <hr>
                                     <div class="float-right">
-                                        <form action="/tripsBySearch" method="post" class="btn btn-sm btn-primary">
+                                        <form action="/getTrip" method="post" class="btn btn-sm btn-primary">
                                             <input type="hidden" name="tripId"
                                                    value='${t.id}'>
                                             <input type="submit" class="btn btn-sm btn-primary" value="Бронировать">

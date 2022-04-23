@@ -16,6 +16,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class TripController {
@@ -32,7 +33,9 @@ public class TripController {
         String to = request.getParameter("second");
         String path = from + "-" + to;
         List<TripDto> tripDtoList = tripService.getBySearch(request.getParameter("date"), request.getParameter("time"), path, Integer.parseInt(request.getParameter("places")));
-        System.out.println(tripDtoList.size());
+        if(request.getParameter("check")!=null){
+            tripDtoList=tripDtoList.stream().sorted(((o1, o2) -> o1.getPrice()-o2.getPrice())).collect(Collectors.toList());
+        }
         Cookie cookie = new Cookie("places", request.getParameter("places"));
         request.getSession().setAttribute("trips", tripDtoList);
         response.addCookie(cookie);
@@ -46,5 +49,11 @@ public class TripController {
         model.addAttribute(request.getSession().getAttribute("trips"));
         model.addAttribute("places",Integer.parseInt(places));
         return "tripsBySearch";
+    }
+    @PostMapping("/getTrip")
+    public String getTrip(HttpServletRequest request,Authentication authentication,@CookieValue(value = "places", defaultValue = "0") String places){
+        Passenger passenger = ((CustomPassengerDetails) authentication.getPrincipal()).getPassenger();
+        tripService.getTrip(Integer.parseInt(request.getParameter("tripId")),Integer.parseInt(places),passenger.getEmail());
+        return "redirect:/main";
     }
 }

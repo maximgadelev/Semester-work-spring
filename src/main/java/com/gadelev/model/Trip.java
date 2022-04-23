@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -27,6 +29,8 @@ public class Trip {
     private Integer freePlaces;
     private Integer notFreePlaces = 0;
     private String status = "on";
+    @ManyToMany(mappedBy = "passengerTrips")
+    List<Passenger> passengers;
 
     public Trip(Car car, String date, Integer price, String path, String time, Integer freePlaces) {
         this.car = car;
