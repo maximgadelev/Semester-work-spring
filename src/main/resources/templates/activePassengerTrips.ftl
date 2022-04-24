@@ -25,7 +25,7 @@
                                             class="icofont-clock-time ml-2"></i></p>
                                 <hr>
                                 <div class="float-right">
-                                    <form action="/driversTrip" method="get" >
+                                    <form action="/findDriverByTrip" method="get" >
                                         <input type="hidden" name="id_trip"
                                                value='${t.id}'>
                                         <input type="submit" class="btn btn-sm btn-primary" value="Узнать водителя">

@@ -12,4 +12,5 @@ public interface TripService {
     List<TripDto> getBySearch(String date, String time, String path, int freePlaces);
     TripDto getTrip(Integer tripId,Integer places,String email);
     List<TripDto> getActiveTripByPassenger(Passenger passenger);
+
 }

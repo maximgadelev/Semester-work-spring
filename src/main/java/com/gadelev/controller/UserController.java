@@ -94,14 +94,25 @@ public class UserController {
         tripService.saveTrip(createTripDto);
         return "redirect:/profile";
     }
-@GetMapping("/activePassengerTrips")
-public String getActivePassengerTrip(Authentication authentication,Model model){
-    Passenger passenger = ((CustomPassengerDetails) authentication.getPrincipal()).getPassenger();
-    List<TripDto> tripDtoList=tripService.getActiveTripByPassenger(passenger);
-    System.out.println(tripDtoList.size());
-    model.addAttribute("passengersActiveTrips",tripDtoList);
-    return "activePassengerTrips";
-}
+
+    @GetMapping("/findDriverByTrip")
+    public String findDriverByTrip(HttpServletRequest httpServletRequest, Model model) {
+        Integer tripId = Integer.parseInt(httpServletRequest.getParameter("id_trip"));
+        model.addAttribute("tripDriver",passengerService.getByTripId(tripId));
+        model.addAttribute("driverCar",passengerService.getByTripId(tripId).getCar());
+        System.out.println(passengerService.getByTripId(tripId).getCar());
+       return "driversTrip";
+    }
+
+    @GetMapping("/activePassengerTrips")
+    public String getActivePassengerTrip(Authentication authentication, Model model) {
+        Passenger passenger = ((CustomPassengerDetails) authentication.getPrincipal()).getPassenger();
+        List<TripDto> tripDtoList = tripService.getActiveTripByPassenger(passenger);
+        System.out.println(tripDtoList.size());
+        model.addAttribute("passengersActiveTrips", tripDtoList);
+        return "activePassengerTrips";
+    }
+
     private File getFile(HttpServletRequest request) throws IOException, ServletException {
         Part part = request.getPart("file");
         String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
@@ -111,7 +122,6 @@ public String getActivePassengerTrip(Authentication authentication,Model model){
         byte[] buffer = new byte[content.available()];
         content.read(buffer);
         outputStream.write(buffer);
-
         return file;
     }
 }

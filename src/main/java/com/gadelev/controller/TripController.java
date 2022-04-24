@@ -56,4 +56,5 @@ public class TripController {
         tripService.getTrip(Integer.parseInt(request.getParameter("tripId")),Integer.parseInt(places),passenger.getEmail());
         return "redirect:/main";
     }
+
 }

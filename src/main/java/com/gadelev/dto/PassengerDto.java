@@ -110,6 +110,14 @@ public class PassengerDto {
         this.role = role;
     }
 
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
+    }
+
     public static PassengerDto fromModel(Passenger passenger) {
         return new PassengerDto(
                 passenger.getId(),
@@ -124,4 +132,5 @@ public class PassengerDto {
                 passenger.getCar()
         );
     }
+
 }
