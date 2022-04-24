@@ -48,14 +48,31 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public TripDto getTrip(Integer tripId,Integer places,String email) {
+    public TripDto getTrip(Integer tripId, Integer places, String email) {
         Trip trip = tripRepository.getById(tripId);
-        trip.setFreePlaces(trip.getFreePlaces()-places);
-        trip.setNotFreePlaces(trip.getNotFreePlaces()+places);
+        trip.setFreePlaces(trip.getFreePlaces() - places);
+        trip.setNotFreePlaces(trip.getNotFreePlaces() + places);
         tripRepository.save(trip);
-        Passenger passenger=passengerRepository.getByEmail(email).get();
+        Passenger passenger = passengerRepository.getByEmail(email).get();
         passenger.getPassengerTrips().add(trip);
         passengerRepository.save(passenger);
         return TripDto.fromModel(trip);
+    }
+
+    @Override
+    public List<TripDto> getActiveTripByPassenger(Passenger passenger) {
+        List<Trip> trips = tripRepository.getTripsByPassengersAndStatus(passenger,"on");
+        return trips.stream().map(trip -> new TripDto(
+                        trip.getId(),
+                        trip.getCar(),
+                        trip.getDate(),
+                        trip.getPrice(),
+                        trip.getPath(),
+                        trip.getTime(),
+                        trip.getFreePlaces(),
+                        trip.getNotFreePlaces(),
+                        trip.getStatus()
+                )
+        ).collect(Collectors.toList());
     }
 }

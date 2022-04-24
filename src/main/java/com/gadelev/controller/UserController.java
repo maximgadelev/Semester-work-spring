@@ -4,6 +4,7 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.gadelev.dto.CreateCarDto;
 import com.gadelev.dto.CreateTripDto;
+import com.gadelev.dto.TripDto;
 import com.gadelev.helper.CloudinaryHelper;
 import com.gadelev.model.Car;
 import com.gadelev.model.Passenger;
@@ -25,6 +26,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -92,7 +94,14 @@ public class UserController {
         tripService.saveTrip(createTripDto);
         return "redirect:/profile";
     }
-
+@GetMapping("/activePassengerTrips")
+public String getActivePassengerTrip(Authentication authentication,Model model){
+    Passenger passenger = ((CustomPassengerDetails) authentication.getPrincipal()).getPassenger();
+    List<TripDto> tripDtoList=tripService.getActiveTripByPassenger(passenger);
+    System.out.println(tripDtoList.size());
+    model.addAttribute("passengersActiveTrips",tripDtoList);
+    return "activePassengerTrips";
+}
     private File getFile(HttpServletRequest request) throws IOException, ServletException {
         Part part = request.getPart("file");
         String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
