@@ -141,6 +141,14 @@ public class UserController {
         model.addAttribute("car", car);
         return "driverEndTrips";
     }
+    @PostMapping("/endTrip")
+    public String endDriverTrip(HttpServletRequest httpServletRequest){
+        Integer tripId=Integer.parseInt(httpServletRequest.getParameter("tripId"));
+        System.out.println(tripId);
+        tripService.endTrip(tripId);
+        return "redirect:/activeDriverTrips";
+
+    }
 
     private File getFile(HttpServletRequest request) throws IOException, ServletException {
         Part part = request.getPart("file");

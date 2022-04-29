@@ -95,7 +95,7 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public List<TripDto> getDriverTrips(String status, Integer id) {
-       List<Trip> trips = tripRepository.getTripsByPassengersAndStatusAndCar(status,id);
+        List<Trip> trips = tripRepository.getTripsByPassengersAndStatusAndCar(status, id);
         return trips.stream().map(trip -> new TripDto(
                         trip.getId(),
                         trip.getCar(),
@@ -109,4 +109,13 @@ public class TripServiceImpl implements TripService {
                 )
         ).collect(Collectors.toList());
     }
+
+    @Override
+    public TripDto endTrip(Integer tripId) {
+        Trip trip = tripRepository.getById(tripId);
+        trip.setStatus("off");
+        tripRepository.save(trip);
+        return TripDto.fromModel(trip);
+    }
+
 }

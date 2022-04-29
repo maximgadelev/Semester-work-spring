@@ -26,7 +26,7 @@
                                                 class="icofont-clock-time ml-2"></i></p>
                                     <hr>
                                     <div class="float-right">
-                                        <form action="/driverActiveTrips" method="post">
+                                        <form action="/endTrip" method="post">
                                             <input type="hidden" name="tripId"
                                                    value='${t.id}'>
                                             <input type="submit" class="btn btn-sm btn-outline-primary"
