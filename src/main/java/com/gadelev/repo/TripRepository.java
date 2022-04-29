@@ -14,6 +14,5 @@ public interface TripRepository extends JpaRepository<Trip, Integer> {
     List<Trip> getTripsByPassengersAndStatus(Passenger passenger, String status);
     @Query(value = "select t.id,date,free_places,not_free_places,path,status,time,t.car_id,price from (select p.id,c.id as car_id  from passengers p inner join car c on p.id = c.driver_id) as driver_car  inner join trip t on t.car_id=driver_car.car_id where status = ? and driver_car.id= ?",nativeQuery = true)
     List<Trip> getTripsByPassengersAndStatusAndCar(String status,Integer id);
-
     Trip getById(Integer tripId);
 }

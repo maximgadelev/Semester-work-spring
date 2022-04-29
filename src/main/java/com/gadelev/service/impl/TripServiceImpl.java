@@ -118,4 +118,9 @@ public class TripServiceImpl implements TripService {
         return TripDto.fromModel(trip);
     }
 
+    @Override
+    public TripDto getById(Integer tripId) {
+        return TripDto.fromModel(tripRepository.getById(tripId));
+    }
+
 }

@@ -13,7 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PassengerServiceImpl implements PassengerService {
@@ -55,7 +58,20 @@ public class PassengerServiceImpl implements PassengerService {
     public PassengerDto getByTripId(Integer tripId) {
         Trip trip1 = tripRepository.getById(tripId);
         Car car = carRepository.getByTrips(trip1);
-       Passenger passenger=passengerRepository.getByCar(car.getId()).get();
+        Passenger passenger = passengerRepository.getByCar(car.getId()).get();
         return PassengerDto.fromModel(passenger);
+    }
+
+    @Override
+    public List<PassengerDto> getPassengersByTripId(Integer tripId) {
+        Trip trip = tripRepository.getById(tripId);
+       List<Passenger> passengers = passengerRepository.getPassengersByPassengerTrips(trip);
+        System.out.println(passengers.size());
+       List<PassengerDto> passengerDtos=new ArrayList<>();
+        for (Passenger passenger:passengers
+             ) {
+            passengerDtos.add(PassengerDto.fromModel(passenger));
+        }
+        return passengerDtos;
     }
 }

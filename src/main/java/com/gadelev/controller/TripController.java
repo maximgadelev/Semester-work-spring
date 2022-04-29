@@ -1,8 +1,10 @@
 package com.gadelev.controller;
 
+import com.gadelev.dto.PassengerDto;
 import com.gadelev.dto.TripDto;
 import com.gadelev.model.Passenger;
 import com.gadelev.security.CustomPassengerDetails;
+import com.gadelev.service.PassengerService;
 import com.gadelev.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -21,10 +23,12 @@ import java.util.stream.Collectors;
 @Controller
 public class TripController {
     public final TripService tripService;
+    public final PassengerService passengerService;
 
     @Autowired
-    public TripController(TripService tripService) {
+    public TripController(TripService tripService, PassengerService passengerService) {
         this.tripService = tripService;
+        this.passengerService = passengerService;
     }
 
     @PostMapping("/findTrips")
@@ -33,8 +37,8 @@ public class TripController {
         String to = request.getParameter("second");
         String path = from + "-" + to;
         List<TripDto> tripDtoList = tripService.getBySearch(request.getParameter("date"), request.getParameter("time"), path, Integer.parseInt(request.getParameter("places")));
-        if(request.getParameter("check")!=null){
-            tripDtoList=tripDtoList.stream().sorted(((o1, o2) -> o1.getPrice()-o2.getPrice())).collect(Collectors.toList());
+        if (request.getParameter("check") != null) {
+            tripDtoList = tripDtoList.stream().sorted(((o1, o2) -> o1.getPrice() - o2.getPrice())).collect(Collectors.toList());
         }
         Cookie cookie = new Cookie("places", request.getParameter("places"));
         request.getSession().setAttribute("trips", tripDtoList);
@@ -45,16 +49,28 @@ public class TripController {
     @GetMapping("/showTrips")
     public String showTrips(Model model, HttpServletRequest request, @CookieValue(value = "places", defaultValue = "0") String places, Authentication authentication) {
         Passenger passenger = ((CustomPassengerDetails) authentication.getPrincipal()).getPassenger();
-        model.addAttribute("passenger",passenger);
+        model.addAttribute("passenger", passenger);
         model.addAttribute(request.getSession().getAttribute("trips"));
-        model.addAttribute("places",Integer.parseInt(places));
+        model.addAttribute("places", Integer.parseInt(places));
         return "tripsBySearch";
     }
+
     @PostMapping("/getTrip")
-    public String getTrip(HttpServletRequest request,Authentication authentication,@CookieValue(value = "places", defaultValue = "0") String places){
+    public String getTrip(HttpServletRequest request, Authentication authentication, @CookieValue(value = "places", defaultValue = "0") String places) {
         Passenger passenger = ((CustomPassengerDetails) authentication.getPrincipal()).getPassenger();
-        tripService.getTrip(Integer.parseInt(request.getParameter("tripId")),Integer.parseInt(places),passenger.getEmail());
+        tripService.getTrip(Integer.parseInt(request.getParameter("tripId")), Integer.parseInt(places), passenger.getEmail());
         return "redirect:/main";
     }
 
+    @GetMapping("/tripsPassenger")
+    public String getTripsPassengers(HttpServletRequest httpServletRequest, Model model) {
+        Integer tripId = Integer.parseInt(httpServletRequest.getParameter("tripId"));
+        List<PassengerDto> passengerDtos = passengerService.getPassengersByTripId(tripId);
+        if (!passengerDtos.isEmpty()) {
+            model.addAttribute("tripsPassengers", passengerDtos);
+        } else {
+            model.addAttribute("tripsPassengers", null);
+        }
+        return "tripsPassengers";
+    }
 }
