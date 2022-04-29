@@ -2,6 +2,7 @@ package com.gadelev.service.impl;
 
 import com.gadelev.dto.CreateTripDto;
 import com.gadelev.dto.TripDto;
+import com.gadelev.model.Car;
 import com.gadelev.model.Passenger;
 import com.gadelev.model.Trip;
 import com.gadelev.repo.PassengerRepository;
@@ -10,7 +11,6 @@ import com.gadelev.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -79,6 +79,23 @@ public class TripServiceImpl implements TripService {
     @Override
     public List<TripDto> getEndTripBPassenger(Passenger passenger) {
         List<Trip> trips = tripRepository.getTripsByPassengersAndStatus(passenger, "off");
+        return trips.stream().map(trip -> new TripDto(
+                        trip.getId(),
+                        trip.getCar(),
+                        trip.getDate(),
+                        trip.getPrice(),
+                        trip.getPath(),
+                        trip.getTime(),
+                        trip.getFreePlaces(),
+                        trip.getNotFreePlaces(),
+                        trip.getStatus()
+                )
+        ).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TripDto> getDriverTrips(String status, Integer id) {
+       List<Trip> trips = tripRepository.getTripsByPassengersAndStatusAndCar(status,id);
         return trips.stream().map(trip -> new TripDto(
                         trip.getId(),
                         trip.getCar(),

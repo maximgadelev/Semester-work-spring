@@ -17,4 +17,5 @@ public interface TripService {
     List<TripDto> getActiveTripByPassenger(Passenger passenger);
 
     List<TripDto> getEndTripBPassenger(Passenger passenger);
+    List<TripDto> getDriverTrips(String status, Integer id);
 }

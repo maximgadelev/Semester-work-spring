@@ -99,10 +99,10 @@ public class UserController {
     @GetMapping("/findDriverByTrip")
     public String findDriverByTrip(HttpServletRequest httpServletRequest, Model model) {
         Integer tripId = Integer.parseInt(httpServletRequest.getParameter("id_trip"));
-        model.addAttribute("tripDriver",passengerService.getByTripId(tripId));
-        model.addAttribute("driverCar",passengerService.getByTripId(tripId).getCar());
+        model.addAttribute("tripDriver", passengerService.getByTripId(tripId));
+        model.addAttribute("driverCar", passengerService.getByTripId(tripId).getCar());
         System.out.println(passengerService.getByTripId(tripId).getCar());
-       return "driversTrip";
+        return "driversTrip";
     }
 
     @GetMapping("/activePassengerTrips")
@@ -113,12 +113,23 @@ public class UserController {
         model.addAttribute("passengersActiveTrips", tripDtoList);
         return "activePassengerTrips";
     }
+
     @GetMapping("/endPassengerTrips")
-    public String getEndPassengerTrips(Authentication authentication,Model model){
-        Passenger passenger=((CustomPassengerDetails)authentication.getPrincipal()).getPassenger();
+    public String getEndPassengerTrips(Authentication authentication, Model model) {
+        Passenger passenger = ((CustomPassengerDetails) authentication.getPrincipal()).getPassenger();
         List<TripDto> tripDtoList = tripService.getEndTripBPassenger(passenger);
-        model.addAttribute("passengersEndTrips",tripDtoList);
+        model.addAttribute("passengersEndTrips", tripDtoList);
         return "endPassengerTrips";
+    }
+
+    @GetMapping("/activeDriverTrips")
+    public String getActiveDriverTrips(Authentication authentication, Model model) {
+        Passenger passenger = ((CustomPassengerDetails) authentication.getPrincipal()).getPassenger();
+        Car car = passenger.getCar();
+        List<TripDto> tripDtoList = tripService.getDriverTrips("on", passenger.getId());
+        model.addAttribute("driverActiveTrips", tripDtoList);
+        model.addAttribute("car", car);
+        return "activeDriverTrips";
     }
 
     private File getFile(HttpServletRequest request) throws IOException, ServletException {
