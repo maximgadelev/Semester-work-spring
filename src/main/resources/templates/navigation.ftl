@@ -6,7 +6,7 @@
                 <li><a href="/main">Главная</a></li>
                 <li><a href="/profile">Профиль</a></li>
                 <li><a href="/activeDriverTrips">Ваши текущие поездки</a></li>
-                <li><a href="/driverEndTrips">Ваши завершенные поездки</a></li>
+                <li><a href="/endDriverTrips">Ваши завершенные поездки</a></li>
                 <li><a href="/driversFeedback">Отзывы о вас</a></li>
                 <li><a href="/logout">Выйти</a></li>
             </ul>

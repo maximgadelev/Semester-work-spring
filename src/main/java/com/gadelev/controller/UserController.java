@@ -132,6 +132,16 @@ public class UserController {
         return "activeDriverTrips";
     }
 
+    @GetMapping("/endDriverTrips")
+    public String getEndDriverTrips(Authentication authentication, Model model) {
+        Passenger passenger = ((CustomPassengerDetails) authentication.getPrincipal()).getPassenger();
+        Car car = passenger.getCar();
+        List<TripDto> tripDtoList = tripService.getDriverTrips("off", passenger.getId());
+        model.addAttribute("driverEndTrips", tripDtoList);
+        model.addAttribute("car", car);
+        return "driverEndTrips";
+    }
+
     private File getFile(HttpServletRequest request) throws IOException, ServletException {
         Part part = request.getPart("file");
         String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
