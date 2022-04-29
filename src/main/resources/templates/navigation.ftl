@@ -101,7 +101,7 @@
                 <li><a href="/main">Главная</a></li>
                 <li><a href="/profile">Профиль Пассажира</a></li>
                 <li><a href ="/activePassengerTrips">Ваши текущие поездки</a></li>
-                <li><a href="/passengerEndTrips">Ваши завершенные поездки</a></li>
+                <li><a href="/endPassengerTrips">Ваши завершенные поездки</a></li>
                 <li><a href="/passengersFeedback">Отзывы о вас</a></li>
                 <li><a href="/logout">Выйти</a></li>
             </ul>

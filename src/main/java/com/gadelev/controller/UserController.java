@@ -20,7 +20,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -111,6 +112,13 @@ public class UserController {
         System.out.println(tripDtoList.size());
         model.addAttribute("passengersActiveTrips", tripDtoList);
         return "activePassengerTrips";
+    }
+    @GetMapping("/endPassengerTrips")
+    public String getEndPassengerTrips(Authentication authentication,Model model){
+        Passenger passenger=((CustomPassengerDetails)authentication.getPrincipal()).getPassenger();
+        List<TripDto> tripDtoList = tripService.getEndTripBPassenger(passenger);
+        model.addAttribute("passengersEndTrips",tripDtoList);
+        return "endPassengerTrips";
     }
 
     private File getFile(HttpServletRequest request) throws IOException, ServletException {

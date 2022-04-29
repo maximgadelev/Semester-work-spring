@@ -61,7 +61,24 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public List<TripDto> getActiveTripByPassenger(Passenger passenger) {
-        List<Trip> trips = tripRepository.getTripsByPassengersAndStatus(passenger,"on");
+        List<Trip> trips = tripRepository.getTripsByPassengersAndStatus(passenger, "on");
+        return trips.stream().map(trip -> new TripDto(
+                        trip.getId(),
+                        trip.getCar(),
+                        trip.getDate(),
+                        trip.getPrice(),
+                        trip.getPath(),
+                        trip.getTime(),
+                        trip.getFreePlaces(),
+                        trip.getNotFreePlaces(),
+                        trip.getStatus()
+                )
+        ).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TripDto> getEndTripBPassenger(Passenger passenger) {
+        List<Trip> trips = tripRepository.getTripsByPassengersAndStatus(passenger, "off");
         return trips.stream().map(trip -> new TripDto(
                         trip.getId(),
                         trip.getCar(),
