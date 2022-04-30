@@ -2,20 +2,20 @@ package com.gadelev.controller;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import com.gadelev.dto.CreateCarDto;
-import com.gadelev.dto.CreateTripDto;
-import com.gadelev.dto.TripDto;
+import com.gadelev.dto.*;
 import com.gadelev.helper.CloudinaryHelper;
 import com.gadelev.model.Car;
 import com.gadelev.model.Passenger;
 import com.gadelev.security.CustomPassengerDetails;
 import com.gadelev.service.CarService;
+import com.gadelev.service.FeedbackService;
 import com.gadelev.service.PassengerService;
 import com.gadelev.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -24,6 +24,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -37,12 +38,14 @@ public class UserController {
     private final PassengerService passengerService;
     private final CarService carService;
     private final TripService tripService;
+    private final FeedbackService feedbackService;
 
     @Autowired
-    public UserController(PassengerService passengerService, CarService carService, TripService tripService) {
+    public UserController(PassengerService passengerService, CarService carService, TripService tripService, FeedbackService feedbackService) {
         this.passengerService = passengerService;
         this.carService = carService;
         this.tripService = tripService;
+        this.feedbackService = feedbackService;
     }
 
     @GetMapping("/profile")
@@ -154,12 +157,17 @@ public class UserController {
     }
 
     @GetMapping("/addFeedbackForUser")
-    private String addFeedback(HttpServletRequest httpServletRequest, HttpServletResponse response) {
+    private String getFeedbackPage(HttpServletRequest httpServletRequest, HttpServletResponse response) {
         Cookie cookie = new Cookie("driverId", httpServletRequest.getParameter("driverId"));
         response.addCookie(cookie);
         return "addFeedbackForUser";
     }
-
+@PostMapping("/addFeedbackForUser")
+        private String addFeedback(@CookieValue(value = "driverId", defaultValue = "0") String driverId,Authentication authentication,HttpServletRequest request){
+        Passenger passenger = ((CustomPassengerDetails) authentication.getPrincipal()).getPassenger();
+        feedbackService.creteNewFeedback(Integer.parseInt(driverId),request.getParameter("feedback"),Integer.parseInt(request.getParameter("rating")),passenger.getId());
+        return "redirect:/profile";
+}
     private File getFile(HttpServletRequest request) throws IOException, ServletException {
         Part part = request.getPart("file");
         String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();

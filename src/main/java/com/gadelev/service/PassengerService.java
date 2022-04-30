@@ -12,4 +12,5 @@ public interface PassengerService {
     void updatePhoto(Passenger passenger,String url);
     PassengerDto getByTripId(Integer id);
     List<PassengerDto> getPassengersByTripId(Integer tripId);
+    PassengerDto getPassengerById(Integer id);
 }

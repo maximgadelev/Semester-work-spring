@@ -65,13 +65,18 @@ public class PassengerServiceImpl implements PassengerService {
     @Override
     public List<PassengerDto> getPassengersByTripId(Integer tripId) {
         Trip trip = tripRepository.getById(tripId);
-       List<Passenger> passengers = passengerRepository.getPassengersByPassengerTrips(trip);
+        List<Passenger> passengers = passengerRepository.getPassengersByPassengerTrips(trip);
         System.out.println(passengers.size());
-       List<PassengerDto> passengerDtos=new ArrayList<>();
-        for (Passenger passenger:passengers
-             ) {
+        List<PassengerDto> passengerDtos = new ArrayList<>();
+        for (Passenger passenger : passengers
+        ) {
             passengerDtos.add(PassengerDto.fromModel(passenger));
         }
         return passengerDtos;
+    }
+
+    @Override
+    public PassengerDto getPassengerById(Integer id) {
+        return PassengerDto.fromModel(passengerRepository.getPassengersById(id));
     }
 }

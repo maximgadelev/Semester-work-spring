@@ -132,5 +132,4 @@ public class PassengerDto {
                 passenger.getCar()
         );
     }
-
 }

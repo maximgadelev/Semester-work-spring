@@ -14,5 +14,6 @@ public interface PassengerRepository extends JpaRepository<Passenger, Integer> {
     @Query(value = "select * from passengers inner join car c on passengers.id = c.driver_id where c.id= ?1",nativeQuery = true)
     Optional<Passenger> getByCar(Integer carId);
     List<Passenger> getPassengersByPassengerTrips(Trip trip);
+    Passenger getPassengersById(Integer id);
 
 }

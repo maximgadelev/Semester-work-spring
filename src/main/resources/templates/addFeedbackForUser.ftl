@@ -1,7 +1,7 @@
 <#ftl encoding='UTF-8'>
 <#import "common.ftl" as common>
 <@common.htmlTemplate pageName="addFeedBackForUser">
-    <form action="/addFeedbackForDriver" method="post">
+    <form action="/addFeedbackForUser" method="post">
         <div id="txt1">Cимволов из 100/<span>0</span></div>
         <textarea class="form-control" maxlength="100" name="feedback" id="txt" placeholder="Отзыв"
                   oninput="getTxt()"></textarea>
