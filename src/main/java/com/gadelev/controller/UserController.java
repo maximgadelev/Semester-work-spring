@@ -171,6 +171,8 @@ public class UserController {
     private String addFeedback(@CookieValue(value = "pId", defaultValue = "0") String pId, Authentication authentication, HttpServletRequest request) {
         Passenger passenger = ((CustomPassengerDetails) authentication.getPrincipal()).getPassenger();
         feedbackService.creteNewFeedback(Integer.parseInt(pId), request.getParameter("feedback"), passenger.getId(), Integer.parseInt(request.getParameter("rating")));
+        PassengerDto passengerDto = passengerService.getPassengerById(Integer.parseInt(pId));
+        passengerService.getNewRating(passengerDto);
         return "redirect:/profile";
     }
 

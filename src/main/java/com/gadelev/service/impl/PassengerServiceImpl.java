@@ -88,4 +88,22 @@ public class PassengerServiceImpl implements PassengerService {
         }
         return passengerDtos;
     }
+
+    @Override
+    public Integer getRatingCount(Integer id) {
+        return passengerRepository.getRatingCount(id);
+    }
+
+    @Override
+    public Double getRatingSum(Integer id) {
+     return passengerRepository.getRatingSum(id);
+    }
+
+    @Override
+    public PassengerDto getNewRating(PassengerDto passenger) {
+        Double rating=passengerRepository.getRatingSum(passenger.getId())/ passengerRepository.getRatingCount(passenger.getId());
+       Passenger passenger1=passengerRepository.getById(passenger.getId());
+       passenger1.setRating(rating);
+       return PassengerDto.fromModel(passengerRepository.save(passenger1));
+    }
 }

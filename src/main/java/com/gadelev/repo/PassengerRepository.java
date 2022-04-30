@@ -17,5 +17,9 @@ public interface PassengerRepository extends JpaRepository<Passenger, Integer> {
     Passenger getPassengersById(Integer id);
     @Query(value = "select p.id,date_of_birth,email,name,password,surname,profile_image,rating,role from feedback inner join passengers p on feedback.from_passenger_id = p.id where feedback.passenger_id=?",nativeQuery = true)
     List<Passenger> getPassengersByAddedFeedBack(Integer passenger_id);
+    @Query(value = "select count(added_rating)from feedback inner join passengers p on p.id = feedback.passenger_id where passenger_id = ?",nativeQuery = true)
+    Integer getRatingCount(Integer id);
+    @Query(value = "select sum(added_rating)from feedback inner join passengers p on p.id = feedback.passenger_id where passenger_id = ?",nativeQuery = true)
+    Double getRatingSum(Integer id);
 
 }
