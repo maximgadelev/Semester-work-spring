@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class PassengerServiceImpl implements PassengerService {
@@ -66,7 +65,6 @@ public class PassengerServiceImpl implements PassengerService {
     public List<PassengerDto> getPassengersByTripId(Integer tripId) {
         Trip trip = tripRepository.getById(tripId);
         List<Passenger> passengers = passengerRepository.getPassengersByPassengerTrips(trip);
-        System.out.println(passengers.size());
         List<PassengerDto> passengerDtos = new ArrayList<>();
         for (Passenger passenger : passengers
         ) {
@@ -78,5 +76,16 @@ public class PassengerServiceImpl implements PassengerService {
     @Override
     public PassengerDto getPassengerById(Integer id) {
         return PassengerDto.fromModel(passengerRepository.getPassengersById(id));
+    }
+
+    @Override
+    public List<PassengerDto> getPassengersWhoWriteFeedback(Integer passenger_id) {
+        List<Passenger> passengers = passengerRepository.getPassengersByAddedFeedBack(passenger_id);
+        List<PassengerDto> passengerDtos = new ArrayList<>();
+        for (Passenger passenger : passengers
+        ) {
+            passengerDtos.add(PassengerDto.fromModel(passenger));
+        }
+        return passengerDtos;
     }
 }

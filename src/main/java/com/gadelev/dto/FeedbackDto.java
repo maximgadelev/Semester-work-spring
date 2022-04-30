@@ -16,7 +16,7 @@ public class FeedbackDto {
     Passenger passenger;
     String text;
     Integer from_passenger_id;
-    int added_rating;
+    Integer added_rating;
 
     public static FeedbackDto fromModel(Feedback feedback) {
         return new FeedbackDto(

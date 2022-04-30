@@ -21,9 +21,9 @@ public class Feedback {
     Passenger passenger;
     String text;
     Integer from_passenger_id;
-    int added_rating;
+    Integer added_rating;
 
-    public Feedback(Passenger passenger, String text, Integer from_passenger_id, int added_rating) {
+    public Feedback(Passenger passenger, String text, Integer from_passenger_id, Integer added_rating) {
         this.passenger = passenger;
         this.text = text;
         this.from_passenger_id = from_passenger_id;

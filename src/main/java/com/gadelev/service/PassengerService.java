@@ -13,4 +13,5 @@ public interface PassengerService {
     PassengerDto getByTripId(Integer id);
     List<PassengerDto> getPassengersByTripId(Integer tripId);
     PassengerDto getPassengerById(Integer id);
+    List<PassengerDto> getPassengersWhoWriteFeedback(Integer passenger_id);
 }

@@ -7,7 +7,7 @@
                 <li><a href="/profile">Профиль</a></li>
                 <li><a href="/activeDriverTrips">Ваши текущие поездки</a></li>
                 <li><a href="/endDriverTrips">Ваши завершенные поездки</a></li>
-                <li><a href="/driversFeedback">Отзывы о вас</a></li>
+                <li><a href="/feedback">Отзывы о вас</a></li>
                 <li><a href="/logout">Выйти</a></li>
             </ul>
         </nav>
@@ -102,7 +102,7 @@
                 <li><a href="/profile">Профиль Пассажира</a></li>
                 <li><a href ="/activePassengerTrips">Ваши текущие поездки</a></li>
                 <li><a href="/endPassengerTrips">Ваши завершенные поездки</a></li>
-                <li><a href="/passengersFeedback">Отзывы о вас</a></li>
+                <li><a href="/feedback">Отзывы о вас</a></li>
                 <li><a href="/logout">Выйти</a></li>
             </ul>
         </nav>

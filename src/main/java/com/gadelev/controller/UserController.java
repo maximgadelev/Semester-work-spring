@@ -24,7 +24,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -162,12 +161,31 @@ public class UserController {
         response.addCookie(cookie);
         return "addFeedbackForUser";
     }
-@PostMapping("/addFeedbackForUser")
-        private String addFeedback(@CookieValue(value = "driverId", defaultValue = "0") String driverId,Authentication authentication,HttpServletRequest request){
+
+    @PostMapping("/addFeedbackForUser")
+    private String addFeedback(@CookieValue(value = "driverId", defaultValue = "0") String driverId, Authentication authentication, HttpServletRequest request) {
         Passenger passenger = ((CustomPassengerDetails) authentication.getPrincipal()).getPassenger();
-        feedbackService.creteNewFeedback(Integer.parseInt(driverId),request.getParameter("feedback"),Integer.parseInt(request.getParameter("rating")),passenger.getId());
+        feedbackService.creteNewFeedback(Integer.parseInt(driverId), request.getParameter("feedback"), passenger.getId(), Integer.parseInt(request.getParameter("rating")));
         return "redirect:/profile";
-}
+    }
+
+    @GetMapping("/feedback")
+    private String showUserFeedback(Authentication authentication, Model model) {
+        Passenger passenger = ((CustomPassengerDetails) authentication.getPrincipal()).getPassenger();
+        List<FeedbackDto> feedbackDtos = feedbackService.getFeedbacksByPassenger(passenger);
+        List<PassengerDto> passengerDtos = passengerService.getPassengersWhoWriteFeedback(passenger.getId());
+        for (int i = 0; i < passengerDtos.size(); i++) {
+            for (int j = i + 1; j < passengerDtos.size(); j++) {
+                if (passengerDtos.get(i).getId() == passengerDtos.get(j).getId()) {
+                    passengerDtos.remove(i);
+                }
+            }
+        }
+        model.addAttribute("passengersFeedback", feedbackDtos);
+        model.addAttribute("drivers", passengerDtos);
+        return "feedback";
+    }
+
     private File getFile(HttpServletRequest request) throws IOException, ServletException {
         Part part = request.getPart("file");
         String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
