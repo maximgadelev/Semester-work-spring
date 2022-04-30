@@ -20,7 +20,7 @@
                                 </h6>
 
                                 <div class="float-right">
-                                    <form action="/addFeedbackForPassenger" method="get">
+                                    <form action="/addFeedbackForUser" method="get">
                                         <input type="hidden" name="pId" value='${p.id}'>
                                         <input type="submit" value="Написать отзыв" class="btn btn-sm btn-primary">
                                     </form>

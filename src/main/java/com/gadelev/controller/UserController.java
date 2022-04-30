@@ -157,15 +157,20 @@ public class UserController {
 
     @GetMapping("/addFeedbackForUser")
     private String getFeedbackPage(HttpServletRequest httpServletRequest, HttpServletResponse response) {
-        Cookie cookie = new Cookie("driverId", httpServletRequest.getParameter("driverId"));
-        response.addCookie(cookie);
+        if(httpServletRequest.getParameter("driverId")!=null) {
+            Cookie cookie = new Cookie("pId", httpServletRequest.getParameter("driverId"));
+            response.addCookie(cookie);
+        }else{
+            Cookie cookie = new Cookie("pId", httpServletRequest.getParameter("pId"));
+            response.addCookie(cookie);
+        }
         return "addFeedbackForUser";
     }
 
     @PostMapping("/addFeedbackForUser")
-    private String addFeedback(@CookieValue(value = "driverId", defaultValue = "0") String driverId, Authentication authentication, HttpServletRequest request) {
+    private String addFeedback(@CookieValue(value = "pId", defaultValue = "0") String pId, Authentication authentication, HttpServletRequest request) {
         Passenger passenger = ((CustomPassengerDetails) authentication.getPrincipal()).getPassenger();
-        feedbackService.creteNewFeedback(Integer.parseInt(driverId), request.getParameter("feedback"), passenger.getId(), Integer.parseInt(request.getParameter("rating")));
+        feedbackService.creteNewFeedback(Integer.parseInt(pId), request.getParameter("feedback"), passenger.getId(), Integer.parseInt(request.getParameter("rating")));
         return "redirect:/profile";
     }
 
@@ -174,13 +179,17 @@ public class UserController {
         Passenger passenger = ((CustomPassengerDetails) authentication.getPrincipal()).getPassenger();
         List<FeedbackDto> feedbackDtos = feedbackService.getFeedbacksByPassenger(passenger);
         List<PassengerDto> passengerDtos = passengerService.getPassengersWhoWriteFeedback(passenger.getId());
-        for (int i = 0; i < passengerDtos.size(); i++) {
-            for (int j = i + 1; j < passengerDtos.size(); j++) {
-                if (passengerDtos.get(i).getId() == passengerDtos.get(j).getId()) {
-                    passengerDtos.remove(i);
+        if(passengerDtos.size()!=1) {
+            for (int i = 0; i < passengerDtos.size(); i++) {
+                for (int j = 0; j < passengerDtos.size(); j++) {
+                    if (passengerDtos.get(i).getId() == passengerDtos.get(j).getId()) {
+                        passengerDtos.remove(i);
+                    }
                 }
             }
         }
+        System.out.println(feedbackDtos.size());
+        System.out.println(passengerDtos.size());
         model.addAttribute("passengersFeedback", feedbackDtos);
         model.addAttribute("drivers", passengerDtos);
         return "feedback";
