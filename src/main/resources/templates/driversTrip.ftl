@@ -20,7 +20,7 @@
                             </p>
                             <p class="text-gray mb-3"><i class="icofont-list"></i> Номер:${driverCar.number} <i class="icofont-clock-time ml-2"></i></p>
                             <div class="float-right">
-                                <form action="/addFeedbackForDriver" method="get">
+                                <form action="/addFeedbackForUser" method="get">
                                     <input type="hidden" name="driverId" value='${tripDriver.id}'>
                                     <input type="submit" value="Написать отзыв" class="btn btn-sm btn-primary">
                                 </form>

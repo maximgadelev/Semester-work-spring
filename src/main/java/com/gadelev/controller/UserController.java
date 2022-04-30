@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -141,13 +143,21 @@ public class UserController {
         model.addAttribute("car", car);
         return "driverEndTrips";
     }
+
     @PostMapping("/endTrip")
-    public String endDriverTrip(HttpServletRequest httpServletRequest){
-        Integer tripId=Integer.parseInt(httpServletRequest.getParameter("tripId"));
+    public String endDriverTrip(HttpServletRequest httpServletRequest) {
+        Integer tripId = Integer.parseInt(httpServletRequest.getParameter("tripId"));
         System.out.println(tripId);
         tripService.endTrip(tripId);
         return "redirect:/activeDriverTrips";
 
+    }
+
+    @GetMapping("/addFeedbackForUser")
+    private String addFeedback(HttpServletRequest httpServletRequest, HttpServletResponse response) {
+        Cookie cookie = new Cookie("driverId", httpServletRequest.getParameter("driverId"));
+        response.addCookie(cookie);
+        return "addFeedbackForUser";
     }
 
     private File getFile(HttpServletRequest request) throws IOException, ServletException {

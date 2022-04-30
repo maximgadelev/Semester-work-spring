@@ -43,8 +43,12 @@ public class Passenger {
 
     @Enumerated(EnumType.STRING)
     private Role role;
-    @OneToOne(mappedBy = "passenger", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "passenger", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Car car;
+
+    @OneToMany(mappedBy = "passenger")
+    private List<Feedback> feedbacks;
+
     public Passenger(String name, String surname, String email, String password, String dateOfBirth, Role role) {
         this.name = name;
         this.surname = surname;
@@ -142,21 +146,12 @@ public class Passenger {
         this.car = car;
     }
 
-    @Override
-    public String toString() {
-        return "Passenger{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", passengerTrips=" + passengerTrips +
-                ", rating=" + rating +
-                ", dateOfBirth='" + dateOfBirth + '\'' +
-                ", profileImage='" + profileImage + '\'' +
-                ", role=" + role +
-                ", car=" + car +
-                '}';
+    public List<Feedback> getFeedbacks() {
+        return feedbacks;
+    }
+
+    public void setFeedbacks(List<Feedback> feedbacks) {
+        this.feedbacks = feedbacks;
     }
 }
 
