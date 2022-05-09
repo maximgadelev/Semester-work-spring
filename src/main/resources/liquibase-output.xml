@@ -1,0 +1,95 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.6.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <changeSet author="Максим (generated)" id="1652121334048-1">
+        <createTable tableName="car">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="car_pkey"/>
+            </column>
+            <column name="brand" type="VARCHAR(255)"/>
+            <column name="model" type="VARCHAR(255)"/>
+            <column name="number" type="VARCHAR(255)"/>
+            <column name="number_of_places" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="driver_id" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Максим (generated)" id="1652121334048-2">
+        <createTable tableName="feedback">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="feedback_pkey"/>
+            </column>
+            <column name="added_rating" type="INTEGER"/>
+            <column name="from_passenger_id" type="INTEGER"/>
+            <column name="text" type="VARCHAR(255)"/>
+            <column name="passenger_id" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Максим (generated)" id="1652121334048-3">
+        <createTable tableName="trip">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="trip_pkey"/>
+            </column>
+            <column name="date" type="VARCHAR(255)"/>
+            <column name="free_places" type="INTEGER"/>
+            <column name="not_free_places" type="INTEGER"/>
+            <column name="path" type="VARCHAR(255)"/>
+            <column name="price" type="INTEGER"/>
+            <column name="status" type="VARCHAR(255)"/>
+            <column name="time" type="VARCHAR(255)"/>
+            <column name="car_id" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Максим (generated)" id="1652121334048-4">
+        <createTable tableName="passengers">
+            <column name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="passengers_pkey"/>
+            </column>
+            <column name="date_of_birth" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="password" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="profile_image" type="VARCHAR(255)"/>
+            <column name="rating" type="FLOAT8">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="VARCHAR(255)"/>
+            <column name="surname" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Максим (generated)" id="1652121334048-5">
+        <addUniqueConstraint columnNames="email" constraintName="uk_he2lxmd479lr1c8ox64s625gu" tableName="passengers"/>
+    </changeSet>
+    <changeSet author="Максим (generated)" id="1652121334048-6">
+        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="1" maxValue="9223372036854775807" minValue="1" sequenceName="hibernate_sequence" startValue="1"/>
+    </changeSet>
+    <changeSet author="Максим (generated)" id="1652121334048-7">
+        <createTable tableName="passengers_trip">
+            <column name="passenger_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="trip__id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Максим (generated)" id="1652121334048-8">
+        <addForeignKeyConstraint baseColumnNames="driver_id" baseTableName="car" constraintName="fk9eqa189lfyr78x1dwr1rkjdnq" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="passengers" validate="true"/>
+    </changeSet>
+    <changeSet author="Максим (generated)" id="1652121334048-9">
+        <addForeignKeyConstraint baseColumnNames="passenger_id" baseTableName="passengers_trip" constraintName="fkbpw9yyh9y17ls14g69nm0j4s9" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="passengers" validate="true"/>
+    </changeSet>
+    <changeSet author="Максим (generated)" id="1652121334048-10">
+        <addForeignKeyConstraint baseColumnNames="trip__id" baseTableName="passengers_trip" constraintName="fkedx0og2i7ik6m3fwtu1rdegky" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="trip" validate="true"/>
+    </changeSet>
+    <changeSet author="Максим (generated)" id="1652121334048-11">
+        <addForeignKeyConstraint baseColumnNames="passenger_id" baseTableName="feedback" constraintName="fkjh2nncqvpjoudam5in7t19sv8" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="passengers" validate="true"/>
+    </changeSet>
+    <changeSet author="Максим (generated)" id="1652121334048-12">
+        <addForeignKeyConstraint baseColumnNames="car_id" baseTableName="trip" constraintName="fkmjbnpu0uj7uodbn1f5j0kp9v6" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="car" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
