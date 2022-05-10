@@ -82,6 +82,7 @@ jar {
         exclude "META-INF/notice.txt"
         exclude "META-INF/spring.handlers"
         exclude "META-INF/spring.schemas"
+        exclude "META-INF/spring.tooling"
         exclude "javax/**"
         exclude "module-info.class"
         exclude "license.txt"
