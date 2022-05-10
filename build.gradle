@@ -67,9 +67,9 @@ liquibase {
         }
     }
 }
-//bootJar {
-//    mainClassName = 'com.gadelev.Application'
-//}
+bootJar {
+    mainClassName = 'com.gadelev.Application'
+}
 jar {
     baseName = 'app'
     version = '0.0.1'
@@ -82,7 +82,7 @@ jar {
         exclude "META-INF/notice.txt"
         exclude "META-INF/spring.handlers"
         exclude "META-INF/spring.schemas"
-        exclude "META-INF/spring.tooling"
+        exclude "META-INF/spring.**"
         exclude "javax/**"
         exclude "module-info.class"
         exclude "license.txt"
