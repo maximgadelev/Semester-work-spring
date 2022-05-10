@@ -71,6 +71,7 @@ bootJar {
     mainClassName = 'com.gadelev.Application'
 }
 jar {
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
     baseName = 'app'
     version = '0.0.1'
     from {
@@ -84,13 +85,4 @@ jar {
         )
     }
 }
-task sourcesJar(type: Jar) {
-    duplicatesStrategy = 'include'
-    classifier = 'sources'
-    from sourceSets.main.allSource
-}
 
-java {
-    withJavadocJar()
-    withSourcesJar()
-}
