@@ -44,6 +44,7 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     implementation "org.springframework.boot:spring-boot-starter-aop:${springBootVersion}"
@@ -53,6 +54,7 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-mail:${springBootVersion}"
+    implementation 'org.springframework.boot:spring-boot-starter-parent:2.6.3'
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.0.4.RELEASE'
     implementation 'org.thymeleaf:thymeleaf-spring5:3.0.15.RELEASE'
