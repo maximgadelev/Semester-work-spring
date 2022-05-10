@@ -62,3 +62,10 @@ liquibase {
         }
     }
 }
+jar {
+    manifest {
+        attributes (
+                'Main-Class': 'package com.gadelev.Application'
+        )
+    }
+}
