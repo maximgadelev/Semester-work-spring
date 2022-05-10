@@ -65,7 +65,7 @@ liquibase {
 jar {
     manifest {
         attributes (
-                'Main-Class': 'package com.gadelev.Application'
+                'Main-Class': 'Application.java'
         )
     }
 }
