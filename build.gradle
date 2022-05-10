@@ -71,7 +71,6 @@ bootJar {
     mainClassName = 'com.gadelev.Application'
 }
 jar {
-    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
     baseName = 'app'
     version = '0.0.1'
     from {
