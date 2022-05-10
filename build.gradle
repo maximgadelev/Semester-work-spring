@@ -2,9 +2,9 @@ plugins {
     id 'org.springframework.boot' version '2.6.7'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'application'
     id 'org.liquibase.gradle' version '2.0.4'
 }
-
 group = 'ru.kpfu.itis.gadelev'
 version = '0.0.1-SNAPSHOT'
 configurations {
@@ -67,7 +67,9 @@ liquibase {
         }
     }
 }
-
+bootJar {
+    mainClassName = 'com.gadelev.Application'
+}
 jar {
     baseName = 'app'
     version = '0.0.1'
