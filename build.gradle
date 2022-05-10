@@ -72,7 +72,13 @@ jar {
     baseName = 'app'
     version = '0.0.1'
     from {
-        configurations.runtimeClasspath.filter{ it.exists() }.collect { it.isDirectory() ? it : zipTree(it) }
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }{
+        exclude "META-INF/**"
+        exclude "javax/**"
+        exclude "module-info.class"
+        exclude "license.txt"
+        exclude "notice.txt"
     }
     manifest {
         attributes(
