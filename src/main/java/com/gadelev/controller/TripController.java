@@ -48,8 +48,10 @@ public class TripController {
 
     @GetMapping("/showTrips")
     public String showTrips(Model model, HttpServletRequest request, @CookieValue(value = "places", defaultValue = "0") String places, Authentication authentication) {
-        Passenger passenger = ((CustomPassengerDetails) authentication.getPrincipal()).getPassenger();
-        model.addAttribute("passenger", passenger);
+        if(authentication!=null) {
+            Passenger passenger = ((CustomPassengerDetails) authentication.getPrincipal()).getPassenger();
+            model.addAttribute("passenger", passenger);
+        }
         model.addAttribute(request.getSession().getAttribute("trips"));
         model.addAttribute("places", Integer.parseInt(places));
         return "tripsBySearch";

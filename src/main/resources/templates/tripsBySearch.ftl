@@ -42,10 +42,12 @@
                             </div>
                         </div>
                     </#list>
+                <#else>
+                    <div class="alert alert-danger" role="alert">
+                        Таких поездок нет
+                    </div>
                 </#if>
                 </div>
-                <#else>
-                Таких поездок нет(
             </#if>
         </div>
     <#else>
@@ -79,6 +81,10 @@
                             </div>
                         </div>
                     </#list>
+                    <#else>
+                        <div class="alert alert-danger" role="alert">
+                            Таких поездок нет
+                        </div>
                 </#if>
                 </div>
             </#if>
